@@ -1,0 +1,11 @@
+Model Information:
+* title:	Keyboardist Robot
+* source:	https://sketchfab.com/3d-models/keyboardist-robot-1510292849ab4f5d9de37a01645c47a7
+* author:	Diego G. (https://sketchfab.com/empty_mirror)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Keyboardist Robot" (https://sketchfab.com/3d-models/keyboardist-robot-1510292849ab4f5d9de37a01645c47a7) by Diego G. (https://sketchfab.com/empty_mirror) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
