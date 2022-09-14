@@ -1,7 +1,7 @@
 import Visual from "../components/main/visual/Visual";
 
 const index = () => {
-  return <main className="container">
+  return <main>
     <Visual />
   </main>;
 }
