@@ -2,8 +2,14 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'noto-regular';
+}
+
+:root {
+  --point-orange :  #ff4a1f;
+  --point-green : #12D7C1;
+  --point-purple : #864EFF;
+  --point-lavender : #A98ED7;
 }
 
 a {
@@ -17,30 +23,20 @@ a:hover {
 
 * {
   box-sizing: border-box;
-  font-family: 'biotif-regular , helvetica-regular';
+  font-family: inherit;
 }
 
 .container {
   width: 1440px;
   max-width: 1440px;
 }
+
 html , body {
   background-color: #fff;
 }
 
-@font-face {
-  font-family: 'biotif-regular';
-  src: url('../public/biotif/Biotif-Regular.ttf');
-}
-@font-face {
-  font-family: 'biotif-bold';
-  src: url('../public/biotif/Biotif-Bold.ttf');
-}
-@font-face {
-  font-family: 'biotif-black';
-  src: url('../public/biotif/Biotif-Black.ttf');
-}
-@font-face {
-  font-family: 'helvetica-regular';
-  src: url('../public/Helvetica-Font/Helvetica Neue LT Std/HelveticaNeueLTStd-BdCn.otf');
-}
+
+
+
+
+
