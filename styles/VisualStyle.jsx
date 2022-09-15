@@ -38,6 +38,24 @@ const VisualStyle = css`
     padding: 15px 40px;
     border-radius: 100px;
   }
-  
+
+  #visual .three .circle1 {
+    width: 800px;
+    height: 800px;
+    border: 1px solid #fff;
+    position: absolute;
+    border-radius: 100%;
+    opacity: 20%;
+  }
+
+  #visual .three .circle2 {
+    width: 1200px;
+    height: 1200px;
+    border: 1px solid #fff;
+    position: absolute;
+    border-radius: 100%;
+    opacity: 10%;
+  }
 `;
+
 export default VisualStyle;

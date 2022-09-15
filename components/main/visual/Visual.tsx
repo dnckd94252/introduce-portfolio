@@ -1,6 +1,6 @@
 import ThreeJS from "./ThreeJS";
 import VisualStyle from "../../../styles/VisualStyle";
-import { FaFontAwesome } from "react-icons/fa";
+import { BsArrowUpRight } from "react-icons/bs";
 
 const Visual = () => {
   return (
@@ -22,9 +22,16 @@ const Visual = () => {
               학생입니다.
             </span>
           </div>
-          <button className="projectBtn mt-5">Go Project</button>
+          <button className="projectBtn mt-5">
+            Go Project
+            <BsArrowUpRight className="ml-3" />
+          </button>
         </div>
-        <ThreeJS />
+        <div className="three d-flex align-items-center justify-content-center">
+          <div className="circle1"></div>
+          <div className="circle2"></div>
+          <ThreeJS />
+        </div>
       </div>
       <style jsx>{VisualStyle}</style>
     </section>

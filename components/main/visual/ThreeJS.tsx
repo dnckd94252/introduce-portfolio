@@ -31,7 +31,7 @@ const ThreeJS = () => {
         5000
       );
 
-      camera.position.set(0, 0, 100);
+      camera.position.set(-5.5, -5.5, 100);
       // camera.position.set(100, 200, 200);
       const loader = new GLTFLoader();
         
