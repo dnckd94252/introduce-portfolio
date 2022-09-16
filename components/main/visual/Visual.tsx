@@ -4,7 +4,7 @@ import { BsArrowUpRight } from "react-icons/bs";
 
 const Visual = () => {
   return (
-    <section id="visual" className="vh-100 d-flex align-items-center">
+    <section id="visual" className="vh-100 vw-100 d-flex align-items-center">
       <div className="container d-flex align-items-center justify-content-between contents">
         <div className="text col-6">
           <div className="d-flex align-items-center">
@@ -30,6 +30,7 @@ const Visual = () => {
         <div className="three d-flex align-items-center justify-content-center">
           <div className="circle1"></div>
           <div className="circle2"></div>
+          <div className="circle3"></div>
           <ThreeJS />
         </div>
       </div>

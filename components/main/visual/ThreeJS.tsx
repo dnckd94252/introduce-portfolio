@@ -94,6 +94,7 @@ const ThreeJS = () => {
     <canvas
       ref={canvasRef}
       id="canvas"
+      style={{zIndex : 3}}
       width=" 700"
       height=" 700"
       // style={{

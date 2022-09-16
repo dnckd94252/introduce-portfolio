@@ -2,6 +2,7 @@ import css from "styled-jsx/css";
 const VisualStyle = css`
   #visual {
     background-color: #151921;
+    overflow: hidden;
   }
 
   #visual .text h1 {
@@ -45,7 +46,7 @@ const VisualStyle = css`
     border: 1px solid #fff;
     position: absolute;
     border-radius: 100%;
-    opacity: 20%;
+    opacity: 15%;
   }
 
   #visual .three .circle2 {
@@ -54,7 +55,16 @@ const VisualStyle = css`
     border: 1px solid #fff;
     position: absolute;
     border-radius: 100%;
-    opacity: 10%;
+    opacity: 8%;
+  }
+
+  #visual .three .circle3 {
+    width: 1700px;
+    height: 1700px;
+    border: 1px solid #fff;
+    position: absolute;
+    border-radius: 100%;
+    opacity: 3%;
   }
 `;
 
