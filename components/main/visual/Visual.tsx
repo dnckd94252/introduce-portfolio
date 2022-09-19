@@ -1,6 +1,7 @@
 import ThreeJS from "./ThreeJS";
 import VisualStyle from "../../../styles/VisualStyle";
 import { BsArrowUpRight } from "react-icons/bs";
+import Image from "next/image";
 
 const Visual = () => {
   return (
@@ -28,6 +29,7 @@ const Visual = () => {
           </button>
         </div>
         <div className="three d-flex align-items-center justify-content-center">
+          <div className="shadowCircle position-absolute"></div>
           <div className="circle1"></div>
           <div className="circle2"></div>
           <div className="circle3"></div>

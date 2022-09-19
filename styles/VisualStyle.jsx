@@ -14,8 +14,9 @@ const VisualStyle = css`
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family: "noto-bold";
+    font-family: "noto-black";
     font-size: 70px;
+    letter-spacing: -2px;
   }
 
   #visual .text .duty {
@@ -40,6 +41,13 @@ const VisualStyle = css`
     border-radius: 100px;
   }
 
+  #visual .three .shadowCircle {
+    width: 690px;
+    height: 690px;
+    box-shadow  : 0 0 500px #000 ;
+    background-color: #151921;
+    border-radius: 100%;
+  }
   #visual .three .circle1 {
     width: 800px;
     height: 800px;
