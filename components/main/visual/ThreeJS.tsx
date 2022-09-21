@@ -31,25 +31,25 @@ const ThreeJS = () => {
         5000
       );
 
-      camera.position.set(-5.5, -5.5, 100);
+      camera.position.set( 1, 5, 10);
       // camera.position.set(100, 200, 200);
       const loader = new GLTFLoader();
         
       // load file
       let mixer;
-      loader.load("/cloud_station/scene.gltf", gltf => {
+      loader.load("/diamond/scene.gltf", gltf => {
         const mesh = gltf.scene.children[0];
         // mesh.scale.set(0.015, 0.015, 0.015);
-        mesh.scale.set(1.7, 1.7, 1.7);
+        mesh.scale.set(2.5, 2.5, 2.5);
         mixer = new THREE.AnimationMixer(gltf.scene);
-        const clip = THREE.AnimationClip.findByName(
-          gltf.animations,
-          "Take 001"
-        );
-        const action = mixer.clipAction(clip);
-        action.enabled = true;
-        action.loop = 1;
-        action.play();
+        // const clip = THREE.AnimationClip.findByName(
+        //   gltf.animations,
+        //   "Take 001"
+        // );
+        // const action = mixer.clipAction(clip);
+        // action.enabled = true;
+        // action.loop = 1;
+        // action.play();
         gltf.scene.castShadow = true;
         scene.add(gltf.scene);
       });
@@ -57,33 +57,33 @@ const ThreeJS = () => {
       // Light and deg for view
       const controls: any = new OrbitControls(camera, canvasRef.current);
       
-      const light1 = new THREE.PointLight(0xf56fcb, 1);
-      light1.position.set(500, 100, 500);
+      const light1 = new THREE.PointLight(0xffffff, 3000);
+      light1.position.set(30, 50, 500);
       light1.castShadow = true;
       scene.add(light1);
 
-      const light2 = new THREE.PointLight(0xffffff, 1);
-      light2.position.set(-200, 500, 100);
+      const light2 = new THREE.PointLight(0xffffff, 3000);
+      light2.position.set(-200, 200, 100);
       light2.castShadow = true;
       scene.add(light2);
 
-      const light3 = new THREE.PointLight(0xf4dbcf, 1);
+      const light3 = new THREE.PointLight(0xf4dbcf, 3000);
       light3.position.set(100, 100, -500);
-
       scene.add(light3);
-      const light4 = new THREE.PointLight(0xffffff, 1);
+
+      const light4 = new THREE.PointLight(0xffffff, 3000);
       light4.position.set(-500, 300, 500);
       scene.add(light4);
-      // // rendering animate
 
       const composer = new EffectComposer(renderer);
       composer.addPass(new RenderPass(scene, camera));
-      // composer.addPass(new EffectPass(camera, new BloomEffect()));
+      composer.addPass(new EffectPass(camera, new BloomEffect()));
       const animate = () => {
         composer.render();
-        if (mixer) {
-          mixer.update(clock.getDelta());
-        }
+        scene.rotation.y += 0.01;
+        // if (mixer) {
+        //   mixer.update(clock.getDelta());
+        // }
         requestAnimationFrame(animate);
       };
       animate();
@@ -97,9 +97,6 @@ const ThreeJS = () => {
       style={{zIndex : 3}}
       width=" 700"
       height=" 700"
-      // style={{
-      //   background: " radial-gradient(#444444,#222222,#111111, #111111)",
-      // }}
     ></canvas>
   );
 };
