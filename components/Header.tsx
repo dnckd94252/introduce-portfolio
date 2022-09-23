@@ -4,6 +4,13 @@ import HeaderStyle from "../styles/HeaderStyle";
 import { useState } from "react";
 
 const Header = () => {
+  const [open , setOpen] = useState(false);
+
+  const openAction = () => {
+    const val = !open ? true : false;
+    setOpen(val); 
+  }
+
   return (
     <header className="position-absolute w-100 d-flex pl-5 pr-5 pt-3 pb-3 justify-content-between align-items-center">
       <div className="logo">
@@ -15,7 +22,8 @@ const Header = () => {
           </a>
         </Link>
       </div>
-      <div className="hamburger d-flex  flex-column justify-content-center position-relative align-items-end">
+      <div className={`hamburger d-flex flex-column justify-content-center position-relative align-items-end ${!open ? null : 'active'}`} onClick={openAction}>
+        <div className="bar"></div>
         <div className="bar"></div>
         <div className="bar"></div>
       </div>
