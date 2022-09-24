@@ -5,18 +5,32 @@ const HeaderStyle = css`
     z-index: 100;
     overflow-y: hidden;
     height: 100px;
-    transition: 0.5s;
+    transition: 0.8s;
   }
-  header.active {
-    height: 100vh;
-    border-bottom: 1px solid #fff;
-  }
+
   header .logo {
     z-index: 100;
   }
+
+  header .underBar {
+    width: 100%;
+    transition: 0.8s;
+    height: 1px;
+    position: absolute;
+    z-index: 20;
+    
+  }
+
+  header .underBar span {
+    background-color: #fff;
+    height: 3px;
+    transition: 0.2s;
+  }
+
   header .logo h2 {
     font-family: "noto-bold";
   }
+
   header .logo h2 b {
     color: var(--point-orange);
   }
@@ -94,8 +108,20 @@ const HeaderStyle = css`
     }
   }
 
+  @keyframes decoBarWidthBack {
+    from {
+      width: 200px;
+    }
+    to {
+      width: 0px;
+    }
+  }
+
   header .content .items .item:hover .decoBar {
     animation: decoBarWidth 0.3s forwards;
+  }
+  header .content .items .item .decoBar {
+    animation: decoBarWidthBack 0.3s forwards;
   }
 
   header .content .backMenu h1 {
@@ -133,13 +159,23 @@ const HeaderStyle = css`
   header.active .wrapper h1 {
     animation: backMenuActive 0.5s forwards;
   }
+
   header .wrapper h1 {
     animation: backMenuNotActive 0.5s forwards;
   }
-  header.active .wrapper .content .items .item{
+
+  header.active .wrapper .content .items .item1 {
     animation: menuActive 0.5s forwards;
-    /* opacity: 1; */
-  } 
+  }
+  header.active .wrapper .content .items .item2 {
+    animation: menuActive 0.65s forwards;
+  }
+  header.active .wrapper .content .items .item3 {
+    animation: menuActive 0.8s forwards;
+  }
+  header.active .wrapper .content .items .item4 {
+    animation: menuActive 0.95s forwards;
+  }
 
   @keyframes backMenuActive {
     from {

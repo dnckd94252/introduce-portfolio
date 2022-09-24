@@ -17,7 +17,7 @@ const VisualStyle = css`
     font-size: 120px;
     line-height: 90%;
   }
-
+  
   #visual .text .title .whiteBar {
     width: 140px;
     height: 20px;

@@ -6,15 +6,37 @@ import { useState } from "react";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState("100px");
+  const [underBarWidth, setUnderBarWidth] = useState<string>("0");
+  const [underBarTranslateY, setUnderBarTranslateY] = useState<string>("0");
 
   const openAction = () => {
     const val = !open ? true : false;
     setOpen(val);
+    if (!open) {
+      setUnderBarWidth("100%");
+    } else {
+      setUnderBarWidth("0");
+    }
+    setTimeout(() => {
+      if (!open) {
+        setHeaderHeight("100vh");
+        setUnderBarWidth("100%");
+        setUnderBarTranslateY("100vh - 100px");
+      } else {
+        setHeaderHeight("100px");
+        setUnderBarWidth("0");
+        setUnderBarTranslateY("0");
+      }
+    }, 200);
   };
 
   return (
-    <header className={`position-absolute w-100 pt-3 pb-3 ${!open ? null : 'active'}`}>
-      <div className="menu w-100 d-flex  pl-5 pr-5 align-items-center justify-content-between">
+    <header
+      className={`position-absolute w-100 pt-3 pb-3 ${!open ? null : "active"}`}
+      style={{ height: headerHeight }}
+    >
+      <div className="menu w-100 d-flex pb-3  pl-5 pr-5 align-items-center justify-content-between">
         <div className="logo">
           <Link href="/">
             <a>
@@ -35,6 +57,14 @@ const Header = () => {
           <div className="bar"></div>
         </div>
       </div>
+      <div
+        className="underBar d-flex align-items-end justify-content-end"
+        style={{
+          transform: `translateY(calc(${underBarTranslateY}))`,
+        }}
+      >
+        <span style={{ width: underBarWidth }}></span>
+      </div>
       <div className="wrapper d-flex flex-column">
         <div className="content w-100 align-items-center justify-content-between d-flex ">
           <div className="backMenu  align-items-center d-flex pl-5">
@@ -45,7 +75,7 @@ const Header = () => {
           <div className="d-flex flex-column align-items-end items pb-5 mb-5">
             <Link href="/" className="menuItem">
               <a>
-                <div className="d-flex align-items-center item justify-content-between">
+                <div className="d-flex align-items-center item1 item justify-content-between">
                   <div className="decoration d-flex align-items-center">
                     <MdOutlineCircle />
                     <div className="decoBar"></div>
@@ -55,7 +85,7 @@ const Header = () => {
               </a>
             </Link>
             <Link href="/" className="menuItem">
-              <div className="d-flex align-items-center item justify-content-between">
+              <div className="d-flex align-items-center item2 item justify-content-between">
                 <div className="decoration d-flex align-items-center">
                   <MdOutlineCircle />
                   <div className="decoBar"></div>
@@ -65,7 +95,7 @@ const Header = () => {
             </Link>
             <Link href="/" className="menuItem">
               <a>
-                <div className="d-flex align-items-center item justify-content-between">
+                <div className="d-flex align-items-center item3 item justify-content-between">
                   <div className="decoration d-flex align-items-center">
                     <MdOutlineCircle />
                     <div className="decoBar"></div>
@@ -76,7 +106,7 @@ const Header = () => {
             </Link>
             <Link href="/" className="menuItem">
               <a>
-                <div className="d-flex align-items-center item justify-content-between">
+                <div className="d-flex align-items-center item4 item justify-content-between">
                   <div className="decoration d-flex align-items-center">
                     <MdOutlineCircle />
                     <div className="decoBar"></div>
