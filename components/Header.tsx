@@ -22,15 +22,15 @@ const Header = () => {
       if (!open) {
         setHeaderHeight("100vh");
         setUnderBarWidth("100%");
-        setUnderBarTranslateY("100vh - 100px");
+        setUnderBarTranslateY("100vh - 200px");
       } else {
         setHeaderHeight("100px");
         setUnderBarWidth("0");
-        setUnderBarTranslateY("0");
+        setUnderBarTranslateY("100px");
       }
     }, 200);
   };
-
+  
   return (
     <header
       className={`position-absolute w-100 pt-3 pb-3 ${!open ? null : "active"}`}

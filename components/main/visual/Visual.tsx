@@ -1,7 +1,5 @@
 import ThreeJS from "./ThreeJS";
 import VisualStyle from "../../../styles/VisualStyle";
-import { BsArrowUpRight } from "react-icons/bs";
-import Image from "next/image";
 
 const Visual = () => {
   return (
