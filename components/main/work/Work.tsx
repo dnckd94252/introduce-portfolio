@@ -1,12 +1,17 @@
 import WorkStyle from "../../../styles/WorkStyle";
+import Title from "./Title";
+
 const Work = () => {
-    return <section id="work" className="container d-flex align-items-center justify-content-between">
-        <div className="col-6 title">
-            
-        </div>
-        <div className="col-6 contents"></div>
-        <style jsx>{WorkStyle}</style>
-    </section>;
-}
+  return (
+    <section
+      id="work"
+      className="d-flex align-items-center justify-content-between"
+    >
+      <Title />
+      <div className="col-6 contents"></div>
+      <style jsx>{WorkStyle}</style>
+    </section>
+  );
+};
 
 export default Work;
