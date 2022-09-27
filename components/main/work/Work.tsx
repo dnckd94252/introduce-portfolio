@@ -1,5 +1,6 @@
 import WorkStyle from "../../../styles/WorkStyle";
 import Title from "./Title";
+import Content from "./Content";
 
 const Work = () => {
   return (
@@ -8,7 +9,7 @@ const Work = () => {
       className="d-flex align-items-center justify-content-between"
     >
       <Title />
-      <div className="col-6 contents"></div>
+      <Content />
       <style jsx>{WorkStyle}</style>
     </section>
   );
