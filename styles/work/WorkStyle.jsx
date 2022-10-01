@@ -77,7 +77,7 @@ const WorkStyle = css`
   #work .contents .item:hover .text h2 {
     color: #fff;
     transition: 0.3s;
-    animation: up-text-h2 0.5s .2s forwards ;
+    animation: up-text-h2 0.5s 0.2s forwards;
   }
 
   #work .contents .item:hover .text span {
@@ -96,5 +96,17 @@ const WorkStyle = css`
       transform: translateY(0);
     }
   }
+
+  #work .contents .item .viewMore {
+    color: #fff;
+    opacity: 0;
+  }
+
+  #work .contents .item:hover .viewMore {
+    opacity: 1;
+    animation: up-text-h2 0.5s 0.2s forwards;
+  }
+  
+  
 `;
 export default WorkStyle;
