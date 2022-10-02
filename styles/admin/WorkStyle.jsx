@@ -1,7 +1,7 @@
 import css from "styled-jsx/css";
 const WorkStyle = css`
   #work {
-    height: 1000px;
+    padding-top: 100px;
     background-color: #131313;
   }
 
@@ -27,6 +27,12 @@ const WorkStyle = css`
     border: 1px solid #fff;
   }
 
+  #work .item select {
+    background: none;
+    color: #fff;
+    border-radius: 0px;
+    border: 1px solid #fff;
+  }
   #work .item input[type="month"] {
     background: none;
     color: #fff;
@@ -43,6 +49,44 @@ const WorkStyle = css`
   #work .item .plusBtn:hover {
     background-color: #fff;
     color: #000;
+  }
+  #work .item input[type="file"] {
+    background-color: none;
+    border: 1px solid #fff;
+  }
+
+  #work .item .mockup-btn {
+    border: 1px solid #fff;
+    background: none;
+    color: #fff;
+    transition: 0.3s;
+    width: 300px;
+  }
+
+  #work .item .mockup-btn:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  #work .item textarea {
+    background: none;
+    border: 1px solid #fff;
+    color: #fff;
+  }
+
+  #work .successBtn {
+    background: none;
+    color: #fff;
+    width: 100%;
+    transition: .3s;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+
+  #work .successBtn:hover {
+    background-color: #fff;
+    color: #000;
+    
   }
 `;
 export default WorkStyle;
