@@ -1,15 +1,33 @@
 import WorkStyle from "../../styles/admin/WorkStyle";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useState, useEffect } from "react";
+import { pickPicture } from "../../fnc/work";
+import Image from "next/image";
 
 const Work = () => {
   const [role, setRole] = useState([0]);
   const [stack, setStack] = useState([0]);
+  const [mockup, setMockup] = useState([]);
+  const [images ,setImages] = useState([]);
 
   const rolePlus = () => setRole([...role, role.length]);
   const stackPlus = () => setStack([...stack, stack.length]);
 
-  
+  const base64ReadPush = async ([state, setState]: any) => {
+    const picture = await pickPicture();
+    if (!picture) return alert("오류 혹은 이미지형식 파일이 아닙니다.");
+    setState([...state, picture]);
+    return true;
+  };
+
+  const mockupUpload = async () => {
+    if (mockup.length > 0) return alert("목업파일은 한개만 가능합니다.");
+    await base64ReadPush([mockup, setMockup]);
+  };
+
+  const imageUpload = async () => {
+    await base64ReadPush([images , setImages]);
+  }
 
   return (
     <section id="work" className="pb-5 d-flex  justify-content-center">
@@ -76,10 +94,25 @@ const Work = () => {
             <span>MOCK-UP</span>
             <button
               type="button"
-              className="mockup-btn pt-4 pb-4 pl-3 pr-3 mt-4"
+              className="mockup-btn pt-4 pb-4 pl-3 pr-3 mt-4 mb-3"
+              onClick={mockupUpload}
             >
               MOCKUP FILE UPLOAD
             </button>
+            <div className="d-flex align-items-center">
+              {mockup.length > 0
+                ? mockup.map((item, key) => (
+                    <Image
+                      key={key}
+                      src={item}
+                      width={200}
+                      height={100}
+                      objectFit="cover"
+                      className="mr-3"
+                    />
+                  ))
+                : null}
+            </div>
           </div>
           <div className="item d-flex flex-column mt-3">
             <span>CONTENT</span>
@@ -116,9 +149,24 @@ const Work = () => {
             <button
               type="button"
               className="mockup-btn pt-4 pb-4 pl-3 pr-3 mt-4"
+              onClick={imageUpload}
             >
               IMAGE FILE UPLOAD
             </button>
+            <div className="d-flex align-items-center mt-3">
+              {images.length > 0
+                ? images.map((item, key) => (
+                    <Image
+                      key={key}
+                      src={item}
+                      width={200}
+                      height={100}
+                      objectFit="cover"
+                      className="mr-3"
+                    />
+                  ))
+                : null}
+            </div>
           </div>
           <button type="submit" className="mt-5 successBtn pt-4 pb-4 pl-3 pr-3">
             SUBMIT
