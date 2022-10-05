@@ -3,12 +3,13 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import { pickPicture } from "../../fnc/work";
 import Image from "next/image";
+import axios from "axios";
 
 const Work = () => {
   const [role, setRole] = useState([0]);
   const [stack, setStack] = useState([0]);
   const [mockup, setMockup] = useState([]);
-  const [images ,setImages] = useState([]);
+  const [images, setImages] = useState([]);
 
   const rolePlus = () => setRole([...role, role.length]);
   const stackPlus = () => setStack([...stack, stack.length]);
@@ -20,14 +21,18 @@ const Work = () => {
     return true;
   };
 
+  axios.post("/api/work" , ['dd']).then((res , req) => {
+    console.log(res);
+  });
+
   const mockupUpload = async () => {
     if (mockup.length > 0) return alert("목업파일은 한개만 가능합니다.");
     await base64ReadPush([mockup, setMockup]);
   };
 
   const imageUpload = async () => {
-    await base64ReadPush([images , setImages]);
-  }
+    await base64ReadPush([images, setImages]);
+  };
 
   return (
     <section id="work" className="pb-5 d-flex  justify-content-center">
