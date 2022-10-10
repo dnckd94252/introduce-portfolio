@@ -1,6 +1,6 @@
 import WorkStyle from "../../styles/admin/WorkStyle";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { pickPicture } from "../../fnc/work";
 import Image from "next/image";
 import axios from "axios";
@@ -21,9 +21,56 @@ const Work = () => {
     return true;
   };
 
-  axios.post("/api/work" , ['dd']).then((res , req) => {
-    console.log(res);
-  });
+  const _bufferProduce = async (base64: string) => {
+    const data = base64.replace(/^data:image\/\w+;base64,/, "");
+    const buf: Buffer = Buffer.from(data, "base64");
+    return buf;
+  };
+
+  const submitAction = async () => {
+    const inputTag: any = document.getElementsByTagName("input");
+    const nameVal = inputTag["name"].value;
+    const startMonthVal = inputTag["startMonth"].value;
+    const endMonthVal = inputTag["endMonth"].value;
+    const roleVal: any = [];
+    const typeVal: any = document.getElementsByTagName("select").type.value;
+    const contentVal: any =
+      document.getElementsByTagName("textarea").content.value;
+    const stackVal = [];
+
+    const roleInput: any = document.getElementsByName("role");
+    roleInput.forEach((item: any) => {
+      roleVal.push(item.value);
+    });
+
+    const stackInput = document.getElementsByName("stack");
+    stackInput.forEach((item: any) => {
+      stackVal.push(item.value);
+    });
+
+    const imagesInput = images.map(
+      async (item: string) => await _bufferProduce(item)
+    );
+
+    const mockupInput = mockup.map(
+      async (item: string) => await _bufferProduce(item)
+    );
+
+    const postVal = {
+      nameVal,
+      startMonthVal,
+      endMonthVal,
+      roleVal,
+      typeVal,
+      contentVal,
+      imagesInput,
+      mockupInput,
+    };
+    
+    axios.post("/api/work", postVal).then(res => {
+      console.log(res);
+    });
+  };
 
   const mockupUpload = async () => {
     if (mockup.length > 0) return alert("목업파일은 한개만 가능합니다.");
@@ -57,13 +104,13 @@ const Work = () => {
               <input
                 type="month"
                 className="pt-4 pb-4 pl-3 pr-3 mt-4"
-                name="month-before"
+                name="startMonth"
               />
               <span className="ml-4 mr-4 mt-3">~</span>
               <input
                 type="month"
                 className="pt-4 pb-4 pl-3 pr-3 mt-4"
-                name="month-after"
+                name="endMonth"
               />
             </div>
           </div>
@@ -84,7 +131,7 @@ const Work = () => {
                 type="text"
                 className="pt-4 pb-4 pl-3 pr-3 mt-4"
                 placeholder="역할"
-                name="name"
+                name="role"
               />
             ))}
           </div>
@@ -173,7 +220,11 @@ const Work = () => {
                 : null}
             </div>
           </div>
-          <button type="submit" className="mt-5 successBtn pt-4 pb-4 pl-3 pr-3">
+          <button
+            type="button"
+            onClick={submitAction}
+            className="mt-5 successBtn pt-4 pb-4 pl-3 pr-3"
+          >
             SUBMIT
           </button>
         </form>
