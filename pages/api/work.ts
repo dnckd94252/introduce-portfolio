@@ -24,7 +24,6 @@ const inputAction = async (data: any) => {
     contentVal,
     imageVal
   } = data;
-  console.log(imageVal.getAll('image'));
   const imagesName: string[] = [];
   //   목업파일 저장
   const mockupName : string = `${Date.now()}` + nameVal + ".png";

@@ -52,7 +52,7 @@ const Work = () => {
       contentVal,
       imageVal,
     };
-
+    
     axios
       .post("/api/work", postVal)
       .then(res => {
