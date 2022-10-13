@@ -1,31 +1,26 @@
 import WorkStyle from "../../styles/admin/WorkStyle";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useState, useEffect, useRef } from "react";
-import { pickPicture } from "../../fnc/work";
+import { pickPicture, readFile, filesBase64Incode } from "../../fnc/work";
 import Image from "next/image";
 import axios from "axios";
 
 const Work = () => {
   const [role, setRole] = useState([0]);
   const [stack, setStack] = useState([0]);
-  const [mockup, setMockup] = useState([]);
-  const [images, setImages] = useState([]);
+  const mockupFileInput = useRef();
+  const imageFileInput = useRef();
+
+  // 목업 , 이미지 파일 배열 안 form data로 post하기 위함
+  const [mockupVal, setMockupVal] = useState([]);
+  const [imageVal, setImageVal] : FormData | any  = useState();
+
+  // 이미지 Preview 띄우기 위함
+  const [mockupSrc, setMockupSrc] = useState([]);
+  const [imagesSrc, setImagesSrc] = useState([]);
 
   const rolePlus = () => setRole([...role, role.length]);
   const stackPlus = () => setStack([...stack, stack.length]);
-
-  const base64ReadPush = async ([state, setState]: any) => {
-    const picture = await pickPicture();
-    if (!picture) return alert("오류 혹은 이미지형식 파일이 아닙니다.");
-    setState([...state, picture]);
-    return true;
-  };
-
-  const _bufferProduce = async (base64: string) => {
-    const data = base64.replace(/^data:image\/\w+;base64,/, "");
-    const buf: Buffer = Buffer.from(data, "base64");
-    return buf;
-  };
 
   const submitAction = async () => {
     const inputTag: any = document.getElementsByTagName("input");
@@ -48,14 +43,6 @@ const Work = () => {
       stackVal.push(item.value);
     });
 
-    const imagesInput = images.map(
-      async (item: string) => await _bufferProduce(item)
-    );
-
-    const mockupInput = mockup.map(
-      async (item: string) => await _bufferProduce(item)
-    );
-
     const postVal = {
       nameVal,
       startMonthVal,
@@ -63,26 +50,74 @@ const Work = () => {
       roleVal,
       typeVal,
       contentVal,
-      imagesInput,
-      mockupInput,
+      imageVal,
     };
-    
-    axios.post("/api/work", postVal).then(res => {
-      console.log(res);
-    });
+
+    axios
+      .post("/api/work", postVal)
+      .then(res => {
+        console.log(res);
+      });
   };
 
-  const mockupUpload = async () => {
-    if (mockup.length > 0) return alert("목업파일은 한개만 가능합니다.");
-    await base64ReadPush([mockup, setMockup]);
+  const mockupFileInputChange = async (event: any) => {
+    if (event.target.files && event.target.files[0]) {
+      const mockupImage = event.target.files[0];
+      const body = new FormData();
+      const readImage = await readFile(mockupImage);
+      body.append("image", mockupImage);
+    }
   };
 
-  const imageUpload = async () => {
-    await base64ReadPush([images, setImages]);
+  const imageFileInputChange = async (event: any) => {
+    if (event.target.files && event.target.files[0]) {
+      const { files } = event.target;
+
+      // 이미지 preview 띄우기
+      const imageSrcs: any = await filesBase64Incode(files);
+      setImagesSrc([...imageSrcs]);
+      
+      const formDataFile = await appendFormData(files);
+      setImageVal(formDataFile);
+    }
+  };
+
+  const appendFormData = async (files: any) => {
+    const body = new FormData();
+    const filesForMapArray: File[] = [...files];
+    Promise.all(
+      filesForMapArray.map(async (item: any) => {
+        await body.append("image", item);
+      })
+    );
+    return body;
+  };
+
+  const mockupInputClick = (event: any) => {
+    mockupFileInput.current.click();
+  };
+
+  const imageInputClick = (event: any) => {
+    imageFileInput.current.click();
   };
 
   return (
     <section id="work" className="pb-5 d-flex  justify-content-center">
+      <input
+        type="file"
+        ref={mockupFileInput}
+        onChange={mockupFileInputChange}
+        accept="image/*"
+        style={{ display: "none" }}
+      />
+      <input
+        type="file"
+        ref={imageFileInput}
+        onChange={imageFileInputChange}
+        accept="image/*"
+        multiple
+        style={{ display: "none" }}
+      />
       <div className="container contents">
         <div className="title mb-5 border-bottom">
           <span>작업물 업로드</span>
@@ -147,13 +182,13 @@ const Work = () => {
             <button
               type="button"
               className="mockup-btn pt-4 pb-4 pl-3 pr-3 mt-4 mb-3"
-              onClick={mockupUpload}
+              onClick={mockupInputClick}
             >
               MOCKUP FILE UPLOAD
             </button>
             <div className="d-flex align-items-center">
-              {mockup.length > 0
-                ? mockup.map((item, key) => (
+              {mockupSrc.length > 0
+                ? mockupSrc.map((item, key) => (
                     <Image
                       key={key}
                       src={item}
@@ -201,13 +236,13 @@ const Work = () => {
             <button
               type="button"
               className="mockup-btn pt-4 pb-4 pl-3 pr-3 mt-4"
-              onClick={imageUpload}
+              onClick={imageInputClick}
             >
               IMAGE FILE UPLOAD
             </button>
             <div className="d-flex align-items-center mt-3">
-              {images.length > 0
-                ? images.map((item, key) => (
+              {imagesSrc.length > 0
+                ? imagesSrc.map((item, key) => (
                     <Image
                       key={key}
                       src={item}

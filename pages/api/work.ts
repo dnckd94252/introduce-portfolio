@@ -22,9 +22,9 @@ const inputAction = async (data: any) => {
     roleVal,
     typeVal,
     contentVal,
-    imagesInput,
-    mockup,
+    imageVal
   } = data;
+  console.log(imageVal.getAll('image'));
   const imagesName: string[] = [];
   //   목업파일 저장
   const mockupName : string = `${Date.now()}` + nameVal + ".png";
@@ -39,28 +39,28 @@ const inputAction = async (data: any) => {
   //   await insertFile(inputSrc + itemName, itemBuffer);
   // });
   // console.log(imagesInput);
-  const sql = {
-    insertWorks:
-      "INSERT INTO works (start_date , end_date , type , mockup , content , name) VALUES (?,?,?,?,?,?)",
-    insertStacks: "INSERT INTO work_stack (work_id , stack) VALUES (?,?)",
-    insertRoles: "INSERT INTO work_roles (work_id , role) VALUES (?,?)",
-    insertImages: "INSERT INTO work_images (src , work_id , name)",
-  };
+  // const sql = {
+  //   insertWorks:
+  //     "INSERT INTO works (start_date , end_date , type , mockup , content , name) VALUES (?,?,?,?,?,?)",
+  //   insertStacks: "INSERT INTO work_stack (work_id , stack) VALUES (?,?)",
+  //   insertRoles: "INSERT INTO work_roles (work_id , role) VALUES (?,?)",
+  //   insertImages: "INSERT INTO work_images (src , work_id , name)",
+  // };
 
-  const sqlItem = {
-    insertWorks: [
-      startMonthVal,
-      endMonthVal,
-      typeVal,
-      mockupName,
-      contentVal,
-      nameVal,
-    ],
-  };
+  // const sqlItem = {
+  //   insertWorks: [
+  //     startMonthVal,
+  //     endMonthVal,
+  //     typeVal,
+  //     mockupName,
+  //     contentVal,
+  //     nameVal,
+  //   ],
+  // };
   
-  const insertWork = await mysql.query(sql.insertWorks , sqlItem.insertWorks);
+  // const insertWork = await mysql.query(sql.insertWorks , sqlItem.insertWorks);
   
-  console.log(insertWork);
+  // console.log(insertWork);
 };
 
 const works = async (req: any, res: any) => {
