@@ -1,6 +1,7 @@
 import AdminStyle from "../../styles/admin/AdminStyle";
 import Link from "next/link";
 const admin = () => {
+  
   return (
     <section id="admin" className="vh-100">
       <div className="container">
@@ -22,4 +23,5 @@ const admin = () => {
     </section>
   );
 };
+
 export default admin;

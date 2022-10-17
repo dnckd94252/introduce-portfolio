@@ -13,7 +13,7 @@ const Work = () => {
 
   // 목업 , 이미지 파일 배열 안 form data로 post하기 위함
   const [mockupVal, setMockupVal] = useState([]);
-  const [imageVal, setImageVal] : FormData | any  = useState();
+  const [imageVal, setImageVal]: FormData | any = useState();
 
   // 이미지 Preview 띄우기 위함
   const [mockupSrc, setMockupSrc] = useState([]);
@@ -42,29 +42,14 @@ const Work = () => {
     stackInput.forEach((item: any) => {
       stackVal.push(item.value);
     });
-
-    const postVal = {
-      nameVal,
-      startMonthVal,
-      endMonthVal,
-      roleVal,
-      typeVal,
-      contentVal,
-      imageVal,
-    };
     
-    axios
-      .post("/api/work", postVal)
-      .then(res => {
-        console.log(res);
-      });
+    
   };
 
   const mockupFileInputChange = async (event: any) => {
     if (event.target.files && event.target.files[0]) {
       const mockupImage = event.target.files[0];
       const body = new FormData();
-      const readImage = await readFile(mockupImage);
       body.append("image", mockupImage);
     }
   };
@@ -76,7 +61,7 @@ const Work = () => {
       // 이미지 preview 띄우기
       const imageSrcs: any = await filesBase64Incode(files);
       setImagesSrc([...imageSrcs]);
-      
+
       const formDataFile = await appendFormData(files);
       setImageVal(formDataFile);
     }
