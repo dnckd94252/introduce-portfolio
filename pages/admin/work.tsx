@@ -16,13 +16,15 @@ const Work = () => {
   const [imageVal, setImageVal]: FormData | any = useState();
 
   // 이미지 Preview 띄우기 위함
-  const [mockupSrc, setMockupSrc] = useState([]);
-  const [imagesSrc, setImagesSrc] = useState([]);
+  const [mockupSrc, setMockupSrc]: any = useState([]);
+  const [imagesSrc, setImagesSrc]: any = useState([]);
 
   const rolePlus = () => setRole([...role, role.length]);
   const stackPlus = () => setStack([...stack, stack.length]);
 
   const submitAction = async () => {
+    const inputFormData = new FormData();
+
     const inputTag: any = document.getElementsByTagName("input");
     const nameVal = inputTag["name"].value;
     const startMonthVal = inputTag["startMonth"].value;
@@ -31,26 +33,70 @@ const Work = () => {
     const typeVal: any = document.getElementsByTagName("select").type.value;
     const contentVal: any =
       document.getElementsByTagName("textarea").content.value;
-    const stackVal = [];
+    const stackVal: string[] = [];
 
     const roleInput: any = document.getElementsByName("role");
+    const stackInput = document.getElementsByName("stack");
+
     roleInput.forEach((item: any) => {
       roleVal.push(item.value);
     });
 
-    const stackInput = document.getElementsByName("stack");
     stackInput.forEach((item: any) => {
       stackVal.push(item.value);
     });
+
+    const formVal: any = {
+      name: nameVal,
+      startMonth: startMonthVal,
+      endMonth: endMonthVal,
+      role: roleVal,
+      type: typeVal,
+      content: contentVal,
+      stack: stackVal,
+      mockup: mockupVal,
+      image: imageVal,
+    };
+
+    for (let idx in formVal) {
+      if (
+        idx === "mockup" ||
+        idx === "image" ||
+        idx === "stack" ||
+        idx === "role"
+      )
+        continue;
+      inputFormData.append(idx, formVal[idx]);
+    }
+
+    inputFormData.append("image", formVal.image);
+
+    await appendFormData(inputFormData, formVal.image, "image");
+    await appendFormData(inputFormData , formVal.mockup , 'mockup');
+
+    appendTextData(inputFormData, formVal.stack, "stack");
+    appendTextData(inputFormData, formVal.role, "role");
     
     
+
+  };
+
+  const appendTextData = (body: FormData, data: string[], name: string) => {
+    data.forEach(item => {
+      body.append(name, item);
+    });
+    return body;
   };
 
   const mockupFileInputChange = async (event: any) => {
     if (event.target.files && event.target.files[0]) {
-      const mockupImage = event.target.files[0];
-      const body = new FormData();
-      body.append("image", mockupImage);
+      const { files } = event.target;
+
+      // 이미지 preview 띄우기
+      const imageSrcs: any = await filesBase64Incode(files);
+      setMockupSrc([...imageSrcs]);
+      
+      setMockupVal(files);
     }
   };
 
@@ -62,17 +108,15 @@ const Work = () => {
       const imageSrcs: any = await filesBase64Incode(files);
       setImagesSrc([...imageSrcs]);
 
-      const formDataFile = await appendFormData(files);
-      setImageVal(formDataFile);
+      setImageVal(files);
     }
   };
 
-  const appendFormData = async (files: any) => {
-    const body = new FormData();
+  const appendFormData = async (body: FormData, files: any, name: string) => {
     const filesForMapArray: File[] = [...files];
     Promise.all(
       filesForMapArray.map(async (item: any) => {
-        await body.append("image", item);
+        await body.append(name, item);
       })
     );
     return body;
