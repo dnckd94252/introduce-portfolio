@@ -1,7 +1,6 @@
-import mysql from "mysql2/promise";
-import { PoolOptions } from "mysql2/typings/mysql";
+const mysql = require('mysql2/promise');
 
-const config: PoolOptions = {
+const config= {
   host: "localhost",
   port: 3306,
   user: "root",
@@ -11,4 +10,4 @@ const config: PoolOptions = {
 
 const pool = mysql.createPool(config);
 
-export default pool;
+module.exports = pool;

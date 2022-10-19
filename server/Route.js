@@ -1,10 +1,23 @@
-const WorkController = require('./controller/WorkController');
+const WorkController = require("./controller/WorkController");
+const express = require("express");
+const Router = express.Router();
 
-const expressRouter = require("express");
-const Router = expressRouter.Router();
-const fs = require("fs");
+const multer = require("multer");
+const path = require("path");
 
-Router.route('/api/work').post(WorkController.create);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/image");
+  },
+  filename: async function (req, file, cb) {
+    const extension = path.extname(file.originalname);
+    const basename = path.basename(file.originalname, extension);
+    await cb(null, basename + "-" + Date.now() + extension);
+  },
+});
 
+const upload = multer({ storage : storage });
+
+Router.route("/api/work").post(upload.any(['image' , 'mockup']), WorkController.create);
 
 module.exports = Router;

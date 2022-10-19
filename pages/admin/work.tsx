@@ -29,6 +29,7 @@ const Work = () => {
     const nameVal = inputTag["name"].value;
     const startMonthVal = inputTag["startMonth"].value;
     const endMonthVal = inputTag["endMonth"].value;
+    const urlVal = inputTag["url"].value;
     const roleVal: any = [];
     const typeVal: any = document.getElementsByTagName("select").type.value;
     const contentVal: any =
@@ -56,6 +57,7 @@ const Work = () => {
       stack: stackVal,
       mockup: mockupVal,
       image: imageVal,
+      url : urlVal,
     };
 
     for (let idx in formVal) {
@@ -72,13 +74,23 @@ const Work = () => {
     inputFormData.append("image", formVal.image);
 
     await appendFormData(inputFormData, formVal.image, "image");
-    await appendFormData(inputFormData , formVal.mockup , 'mockup');
+    await appendFormData(inputFormData, formVal.mockup, "mockup");
 
     appendTextData(inputFormData, formVal.stack, "stack");
     appendTextData(inputFormData, formVal.role, "role");
-    
-    
 
+    await axios
+      .post("http://localhost:8080/api/work", inputFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const appendTextData = (body: FormData, data: string[], name: string) => {
@@ -95,7 +107,7 @@ const Work = () => {
       // 이미지 preview 띄우기
       const imageSrcs: any = await filesBase64Incode(files);
       setMockupSrc([...imageSrcs]);
-      
+
       setMockupVal(files);
     }
   };
@@ -160,6 +172,15 @@ const Work = () => {
               className="pt-4 pb-4 pl-3 pr-3 mt-4"
               placeholder="작업물 이름"
               name="name"
+            />
+          </div>
+          <div className="item d-flex flex-column mt-3">
+            <span>URL</span>
+            <input
+              type="text"
+              className="pt-4 pb-4 pl-3 pr-3 mt-4"
+              placeholder="작업물 URL"
+              name="url"
             />
           </div>
           <div className="item d-flex flex-column mt-3">

@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 8080;
 const server = http.createServer(app);
-const Router = require('./Route');
+const RouteController = require('./Route');
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -20,8 +20,7 @@ app.use(
     extended: false,
   })
 );
-
-app.use(Router);
+app.use(RouteController);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
