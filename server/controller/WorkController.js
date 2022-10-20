@@ -3,8 +3,17 @@ const mysql = require("../mysql");
 class WorkController {
   async create(req, res) {
     const { files, body } = req;
-    const { url, name, startMonth, endMonth, type, content, stack, role } =
-      body;
+    const {
+      url,
+      name,
+      startMonth,
+      endMonth,
+      type,
+      content,
+      stack,
+      role,
+      subTitle,
+    } = body;
 
     const mockup = req.files
       .filter(item => item.fieldname === "mockup")
@@ -33,17 +42,15 @@ class WorkController {
       mockup,
       image,
       url,
+      subTitle,
     };
-
-    console.log(data.endMonth);
 
     const sql = {
       workInsert:
-        " INSERT INTO works(name , start_date , end_date , type , mockup , content , url) VALUES (?,?,?,?,?,?,?)",
+        " INSERT INTO works(name , start_date , end_date , type , mockup , content , url , sub_title) VALUES (?,?,?,?,?,?,?,?)",
       workStackInsert: "INSERT INTO work_stacks(work_id , stack) VALUES (?,?)",
       workRoleInsert: "INSERT INTO work_roles(work_id , role) VALUES (?,?)",
-      workImageInsert:
-        "INSERT INTO work_images(src , work_id , name) VALUES (?,?,?)",
+      workImageInsert: "INSERT INTO work_images(work_id , name) VALUES (?,?)",
     };
 
     const sqlData = {
@@ -55,12 +62,36 @@ class WorkController {
         ...data.mockup,
         data.content,
         data.url,
+        data.subTitle,
       ],
     };
 
-    await mysql.query(sql.workInsert , sqlData.workInsert);
+    const workInsert = await mysql.execute(sql.workInsert, sqlData.workInsert);
+    const workInsertId = workInsert[0].insertId;
+
     for (const element of data.stack) {
       if (!element || element.length <= 0) continue;
+      const workStackData = [workInsertId, element];
+      mysql.execute(sql.workStackInsert, workStackData);
+    }
+
+    for (const element of data.role) {
+      if (!element || element.length <= 0) continue;
+      const workRoleData = [workInsertId, element];
+      mysql.execute(sql.workRoleInsert, workRoleData);
+    }
+
+    for (const element of data.image) {
+      if (!element || element.length <= 0) continue;
+      const workImageData = [workInsertId, element];
+      mysql.execute(sql.workImageInsert, workImageData);
+    }
+
+    return res.send(true);
+  }
+  async get(req , res) {
+    const sql = {
+      select : ''
     }
   }
 }

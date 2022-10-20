@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage : storage });
 
-Router.route("/api/work").post(upload.any(['image' , 'mockup']), WorkController.create);
+Router.route("/api/work").post(upload.any(['image' , 'mockup']), WorkController.create).get(WorkController.get);
+
 
 module.exports = Router;

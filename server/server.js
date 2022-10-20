@@ -7,6 +7,7 @@ const server = http.createServer(app);
 const RouteController = require('./Route');
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const cors = require('cors');
 
 app.use(
   express.json({
@@ -20,6 +21,7 @@ app.use(
     extended: false,
   })
 );
+app.use(cors());
 app.use(RouteController);
 app.use(bodyParser.json());
 app.use(cookieParser());

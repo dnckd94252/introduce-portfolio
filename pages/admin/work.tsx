@@ -22,7 +22,8 @@ const Work = () => {
   const rolePlus = () => setRole([...role, role.length]);
   const stackPlus = () => setStack([...stack, stack.length]);
 
-  const submitAction = async () => {
+  const submitAction = async (e : any) => {
+    e.preventDefault();
     const inputFormData = new FormData();
 
     const inputTag: any = document.getElementsByTagName("input");
@@ -30,6 +31,7 @@ const Work = () => {
     const startMonthVal = inputTag["startMonth"].value;
     const endMonthVal = inputTag["endMonth"].value;
     const urlVal = inputTag["url"].value;
+    const subTitleVal = inputTag["subTitle"].value;
     const roleVal: any = [];
     const typeVal: any = document.getElementsByTagName("select").type.value;
     const contentVal: any =
@@ -58,6 +60,7 @@ const Work = () => {
       mockup: mockupVal,
       image: imageVal,
       url : urlVal,
+      subTitle : subTitleVal,
     };
 
     for (let idx in formVal) {
@@ -80,16 +83,17 @@ const Work = () => {
     appendTextData(inputFormData, formVal.role, "role");
 
     await axios
-      .post("http://localhost:8080/api/work", inputFormData, {
+      .post("/api/work", inputFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then(res => {
-        console.log(res);
+        const {data} = res;
+        if(data) return alert('성공적으로 저장하였습니다.');
       })
       .catch(err => {
-        console.log(err);
+        return alert('에러');
       });
   };
 
@@ -181,6 +185,15 @@ const Work = () => {
               className="pt-4 pb-4 pl-3 pr-3 mt-4"
               placeholder="작업물 URL"
               name="url"
+            />
+          </div>
+          <div className="item d-flex flex-column mt-3">
+            <span>SUB TITLE</span>
+            <input
+              type="text"
+              className="pt-4 pb-4 pl-3 pr-3 mt-4"
+              placeholder="서브 타이틀"
+              name="subTitle"
             />
           </div>
           <div className="item d-flex flex-column mt-3">
