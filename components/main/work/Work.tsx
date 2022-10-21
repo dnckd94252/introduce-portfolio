@@ -7,7 +7,9 @@ const Work = () => {
   const [workItem, setWorkItem]: any[] = useState([]);
 
   useEffect(() => {
-    const data = axios.get('/api/work').then(res => console.log(res));
+    axios.get('/api/work').then(res => {
+      setWorkItem(res.data);
+    });
   }, []);
 
   return (
@@ -18,8 +20,7 @@ const Work = () => {
           <h1>Case studies</h1>
         </div>
         <div className="contents d-flex align-items-center justify-content-between flex-column">
-          <Item />
-          <Item />
+          {workItem.length <= 0 ? null : workItem.map((information:any , key : number) => <Item key={key} information={information} />)}
         </div>
       </div>
       <style jsx>{WorkStyle}</style>

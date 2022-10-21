@@ -92,9 +92,10 @@ class WorkController {
 
   async get(req , res) {
     const sql = {
-      select : ''
+      select : 'SELECT * from works'
     }
-    res.send('dd');
+    const [data] = await mysql.query(sql.select);
+    return res.send(data);
   }
 }
 
