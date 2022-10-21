@@ -89,10 +89,12 @@ class WorkController {
 
     return res.send(true);
   }
+
   async get(req , res) {
     const sql = {
       select : ''
     }
+    res.send('dd');
   }
 }
 

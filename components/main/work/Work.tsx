@@ -7,8 +7,7 @@ const Work = () => {
   const [workItem, setWorkItem]: any[] = useState([]);
 
   useEffect(() => {
-    const data = axios.get('/api/work');
-    
+    const data = axios.get('/api/work').then(res => console.log(res));
   }, []);
 
   return (
