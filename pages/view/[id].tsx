@@ -1,0 +1,39 @@
+import ViewStyle from "../../styles/view/ViewStyle";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Loading from "../../components/Loading";
+import Content from "../../components/view/Content";
+
+const View = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const [work, setWork]: any = useState();
+  const [state, setState]: any = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+    axios.post("/api/view", { id }).then(res => {
+      const { data } = res;
+      setWork(data);
+    });
+  }, [id]);
+
+  useEffect(() => {
+    if (work) {
+      setState(true);
+    }
+  }, [work]);
+
+  return (
+    <section id="view" className="vh-100">
+      <div className="container contents">
+        
+      </div>
+      <Loading state={state} />
+      <style jsx>{ViewStyle}</style>
+    </section>
+  );
+};
+
+export default View;

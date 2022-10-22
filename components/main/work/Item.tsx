@@ -1,17 +1,21 @@
 import WorkStyle from "../../../styles/work/WorkStyle";
 import Image from "next/image";
 import { BsArrowRightSquare } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 const Item = (props : any) => {
   const {id , start_date , end_date, type , mockup , name , content , sub_title} = props.information;
-  
+  const router = useRouter();
+
   const dateFormat = (date : Date) => {
     const baseDate = new Date(date);
     return `${baseDate.getFullYear()}.${baseDate.getMonth() + 1}`;
   }
   
+  const pageRoute = () => router.push(`/view/${id}`);
+  
   return (
-    <div className="item position-relative d-flex justify-content-between mt-5 mb-5">
+    <div className="item position-relative d-flex justify-content-between mt-5 mb-5" onClick={pageRoute}>
       <Image
         src={require(`../../../server/public/image/${mockup}`)}
         className="baseImage position-absolute"

@@ -1,4 +1,6 @@
 const WorkController = require("./controller/WorkController");
+const ViewController = require("./controller/ViewController");
+
 const express = require("express");
 const Router = express.Router();
 
@@ -21,5 +23,6 @@ const upload = multer({ storage: storage });
 Router.route("/api/work")
   .post(upload.any(["image", "mockup"]), WorkController.create)
   .get(WorkController.get);
+Router.route("/api/view").post(ViewController.get);
 
 module.exports = Router;
