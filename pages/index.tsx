@@ -6,7 +6,6 @@ const index = () => {
     <main>
       <Visual />
       <Work />
-      
     </main>
   );
 };

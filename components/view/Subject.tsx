@@ -4,8 +4,8 @@ const Subject = (props: any) => {
   const { data } = props;
   const { work , work_stack } = data;
   const { content } = work[0];
-
   const divide = content.split("\n");
+
   return (
     <div className="subject">
       <div className="item">
@@ -13,7 +13,7 @@ const Subject = (props: any) => {
           <span>CONTENT</span>
         </div>
         {divide.map((item: string, idx: number) => (
-          <p key={idx}>{item}</p>
+          <p key={idx} className="mb-2">{item}</p>
         ))}
       </div>
       <div className="item">
