@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import Content from "../../components/view/Content";
+import Images from "../../components/view/ImageContent";
 
 const View = () => {
   const router = useRouter();
@@ -26,9 +27,10 @@ const View = () => {
   }, [work]);
 
   return (
-    <section id="view" className="vh-100">
+    <section id="view" >
       <div className="container contents">
-        
+        {work ? <Content work={work} /> : null }
+        {work ? <Images data={work} /> : null}
       </div>
       <Loading state={state} />
       <style jsx>{ViewStyle}</style>

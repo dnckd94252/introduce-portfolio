@@ -1,10 +1,14 @@
 import ContentStyle from "../../styles/view/ContentStyle";
 import Breif from "./Breif";
+import Subject from "./Subject";
 
-const Content = () => {
+const Content = (props : any) => {
+  const {work} = props;
+
   return (
     <div className="content d-flex">
-      <Breif />
+      <Breif data={work} />
+      <Subject data={work} />
       <style jsx>{ContentStyle}</style>
     </div>
   );
